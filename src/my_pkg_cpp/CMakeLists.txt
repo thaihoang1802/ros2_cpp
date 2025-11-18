@@ -24,11 +24,15 @@ endif()
 
 ament_package()
 
-add_executable(ros2_cpp src/publisher.cpp)
+add_executable(pub_node src/Publisher.cpp)
+add_executable(sub_node src/Subcriber.cpp)
 
-ament_target_dependencies(ros2_cpp rclcpp std_msgs)
+ament_target_dependencies(pub_node rclcpp std_msgs)
+ament_target_dependencies(sub_node rclcpp std_msgs)
+
 
 install(TARGETS
-  ros2_cpp
+  pub_node
+  sub_node
   DESTINATION lib/${PROJECT_NAME}
 )
