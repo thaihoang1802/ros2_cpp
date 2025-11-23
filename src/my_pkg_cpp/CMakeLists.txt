@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(example_interfaces REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -22,17 +23,25 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_package()
-
 add_executable(pub_node src/Publisher.cpp)
 add_executable(sub_node src/Subcriber.cpp)
-
 ament_target_dependencies(pub_node rclcpp std_msgs)
 ament_target_dependencies(sub_node rclcpp std_msgs)
+
+add_executable(server_node src/sevice_server.cpp)
+add_executable(client_node src/sevice_client.cpp)
+ament_target_dependencies(server_node rclcpp example_interfaces)
+ament_target_dependencies(client_node rclcpp example_interfaces)
 
 
 install(TARGETS
   pub_node
   sub_node
+  server_node
+  client_node
   DESTINATION lib/${PROJECT_NAME}
 )
+
+ament_package()
+
+
